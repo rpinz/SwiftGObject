@@ -305,7 +305,11 @@ open class Value: ValueBase, ExpressibleByStringLiteral, ExpressibleByIntegerLit
         memset(UnsafeMutableRawPointer(ptr), 0, MemoryLayout<GValue>.size)
         super.init(ptr)
     }
+#if swift(>=4.1)
+    deinit { ptr.deallocate() }
+#else
     deinit { ptr.deallocate(capacity: 1) }
+#endif
 
     /// Convenience value constructor
     ///
