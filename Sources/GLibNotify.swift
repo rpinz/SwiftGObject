@@ -15,7 +15,7 @@ public extension ObjectProtocol {
     /// Freeze notifications
     ///
     /// - Parameter context: notification context to freeze
-    public func freeze(context: UnsafeMutablePointer<GObjectNotifyContext>?) -> UnsafeMutablePointer<GObjectNotifyQueue>? {
+    func freeze(context: UnsafeMutablePointer<GObjectNotifyContext>?) -> UnsafeMutablePointer<GObjectNotifyQueue>? {
         guard let context = context else { return nil }
         let qdata = UnsafeMutablePointer(mutating: &ptr.pointee.qdata).withMemoryRebound(to: Optional<UnsafeMutablePointer<GData>>.self, capacity: 1) { $0 }
         var queue: UnsafeMutablePointer<GObjectNotifyQueue>?
@@ -45,7 +45,7 @@ public extension ObjectProtocol {
     /// Unfreeze notifications
     ///
     /// - Parameter queue: notification queue to thaw
-    public func thaw(queue nq: UnsafeMutablePointer<GObjectNotifyQueue>) {
+    func thaw(queue nq: UnsafeMutablePointer<GObjectNotifyQueue>) {
         guard let context = nq.pointee.context else { return }
         var pspecs = Array<UnsafeMutablePointer<GParamSpec>?>()
         lockq.sync {
